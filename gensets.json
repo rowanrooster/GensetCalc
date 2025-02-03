@@ -1,0 +1,30 @@
+[
+    {
+        "model": "Model A1000",
+        "power_kW": 10,
+        "power_kVA": 12.5,
+        "voltage": "230V",
+        "phase": "single",
+        "fuel": "diesel",
+        "efficiency": 2.5,
+        "load_type": "residential",
+        "runtime": 8,
+        "features": ["Low noise", "ATS compatible"],
+        "image": "image-a1000.jpg",
+        "price": 1500
+    },
+    {
+        "model": "Model B2000",
+        "power_kW": 50,
+        "power_kVA": 62.5,
+        "voltage": "400V",
+        "phase": "three",
+        "fuel": "petrol",
+        "efficiency": 5.0,
+        "load_type": "commercial",
+        "runtime": 6,
+        "features": ["Water-cooled", "Remote monitoring"],
+        "image": "image-b2000.jpg",
+        "price": 5000
+    }
+]

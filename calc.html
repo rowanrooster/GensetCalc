@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Genset Calculator</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .container { max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ccc; }
+        label { display: block; margin-top: 10px; }
+        input, select { width: 100%; padding: 8px; margin-top: 5px; }
+        button { margin-top: 15px; padding: 10px; background-color: #007BFF; color: white; border: none; cursor: pointer; }
+        #results { margin-top: 20px; padding: 10px; border: 1px solid #007BFF; display: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Genset Calculator</h2>
+        <label for="power">Power Requirement (kW):</label>
+        <input type="number" id="power" min="1" required>
+        
+        <label for="phase">Phase:</label>
+        <select id="phase">
+            <option value="single">Single Phase</option>
+            <option value="three">Three Phase</option>
+        </select>
+        
+        <label for="fuel">Fuel Type:</label>
+        <select id="fuel">
+            <option value="diesel">Diesel</option>
+            <option value="petrol">Petrol</option>
+            <option value="gas">Gas</option>
+        </select>
+        
+        <button onclick="calculateGenset()">Find Generator</button>
+        
+        <div id="results"></div>
+    </div>
+
+    <script>
+        async function loadGenerators() {
+            const response = await fetch('gensets.json'); // Ensure this path is correct
+            return await response.json();
+        }
+    
+        async function calculateGenset() {
+            let power = parseFloat(document.getElementById("power").value);
+            let phase = document.getElementById("phase").value;
+            let fuel = document.getElementById("fuel").value;
+            
+            let generators = await loadGenerators();
+            
+            // Filter best match
+            let recommended = generators.filter(gen =>
+                gen.power_kW >= power && gen.phase === phase && gen.fuel === fuel
+            );
+    
+            // Display results
+            let resultsDiv = document.getElementById("results");
+            resultsDiv.innerHTML = "";
+    
+            if (recommended.length > 0) {
+                recommended.forEach(gen => {
+                    resultsDiv.innerHTML += `
+                        <div style="border:1px solid #ccc; padding:10px; margin-bottom:10px;">
+                            <h3>${gen.model}</h3>
+                            <p><strong>Power:</strong> ${gen.power_kW} kW / ${gen.power_kVA} kVA</p>
+                            <p><strong>Fuel:</strong> ${gen.fuel}</p>
+                            <p><strong>Features:</strong> ${gen.features.join(", ")}</p>
+                            <img src="${gen.image}" alt="${gen.model}" style="max-width:100px;">
+                            <p><strong>Price:</strong> $${gen.price}</p>
+                        </div>
+                    `;
+                });
+            } else {
+                resultsDiv.innerHTML = "<p>No suitable generator found.</p>";
+            }
+    
+            resultsDiv.style.display = "block";
+        }
+    </script>
+</body>
+</html>
