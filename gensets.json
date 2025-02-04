@@ -18,11 +18,11 @@
         "power_kVA": 62.5,
         "voltage": "400V",
         "phase": "three",
-        "fuel": "petrol",
+        "fuel": "gas",
         "efficiency": 5.0,
         "load_type": "commercial",
         "runtime": 6,
-        "features": ["Water-cooled", "Remote monitoring"],
+        "features": ["Remote monitoring"],
         "image": "image-b2000.jpg"
     }
 ]

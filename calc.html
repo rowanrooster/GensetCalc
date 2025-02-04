@@ -7,8 +7,13 @@
         .container { max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ccc; }
         label { display: block; margin-top: 10px; }
         input, select { width: 100%; padding: 8px; margin-top: 5px; }
+        #power { width: calc(100% - 20px); }
         button { margin-top: 15px; padding: 10px; background-color: #007BFF; color: white; border: none; cursor: pointer; }
         #results { margin-top: 20px; padding: 10px; border: 1px solid #007BFF; display: none; }
+        .results-container { display: flex; flex-direction: row; justify-content: space-between; padding: 0 10px; }
+        .results-info { width: 50%; }
+        .results-img { width: 45%; }
+        .results-img img { width: 100%; }
     </style>
 </head>
 <body>
@@ -34,7 +39,6 @@
         <label for="fuel">Fuel Type:</label>
         <select id="fuel">
             <option value="diesel">Diesel</option>
-            <option value="petrol">Petrol</option>
             <option value="gas">Gas</option>
         </select>
         
@@ -72,13 +76,17 @@
             if (recommended.length > 0) {
                 recommended.forEach(gen => {
                     resultsDiv.innerHTML += `
-                        <div style="border:1px solid #ccc; padding:10px; margin-bottom:10px;">
-                            <h3>${gen.model}</h3>
-                            <p><strong>Power:</strong> ${gen.power_kW} kW / ${gen.power_kVA} kVA</p>
-                            <p><strong>Fuel:</strong> ${gen.fuel}</p>
-                            <p><strong>Application:</strong> ${gen.load_type}</p>
-                            <p><strong>Features:</strong> ${gen.features.join(", ")}</p>
-                            <img src="${gen.image}" alt="${gen.model}" style="max-width:100px;">
+                        <div class="results-container">
+                            <div class="results-info">
+                                <h3>${gen.model}</h3>
+                                <p><strong>Power:</strong> ${gen.power_kW} kW / ${gen.power_kVA} kVA</p>
+                                <p><strong>Fuel:</strong> ${gen.fuel}</p>
+                                <p><strong>Application:</strong> ${gen.load_type}</p>
+                                <p><strong>Features:</strong> ${gen.features.join(", ")}</p>
+                            </div>
+                            <div class="results-img">
+                                <img src="${gen.image}" alt="${gen.model}">
+                            </div>
                         </div>
                     `;
                 });
