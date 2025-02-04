@@ -10,8 +10,7 @@
         "load_type": "residential",
         "runtime": 8,
         "features": ["Low noise", "ATS compatible"],
-        "image": "image-a1000.jpg",
-        "price": 1500
+        "image": "image-a1000.jpg"
     },
     {
         "model": "Model B2000",
@@ -24,7 +23,6 @@
         "load_type": "commercial",
         "runtime": 6,
         "features": ["Water-cooled", "Remote monitoring"],
-        "image": "image-b2000.jpg",
-        "price": 5000
+        "image": "image-b2000.jpg"
     }
 ]

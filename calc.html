@@ -16,6 +16,14 @@
         <h2>Genset Calculator</h2>
         <label for="power">Power Requirement (kW):</label>
         <input type="number" id="power" min="1" required>
+
+        <label for="application">Application:</label>
+        <select id="application">
+            <option value="residential">Residential</option>
+            <option value="commercial">Commercial</option>
+            <option value="industrial">Industrial</option>
+        </select>
+
         
         <label for="phase">Phase:</label>
         <select id="phase">
@@ -45,12 +53,16 @@
             let power = parseFloat(document.getElementById("power").value);
             let phase = document.getElementById("phase").value;
             let fuel = document.getElementById("fuel").value;
-            
+            let application = document.getElementById("application").value; // Get selected application type
+    
             let generators = await loadGenerators();
             
             // Filter best match
             let recommended = generators.filter(gen =>
-                gen.power_kW >= power && gen.phase === phase && gen.fuel === fuel
+                gen.power_kW >= power &&
+                gen.phase === phase &&
+                gen.fuel === fuel &&
+                gen.load_type === application // Ensure the application type matches
             );
     
             // Display results
@@ -64,9 +76,9 @@
                             <h3>${gen.model}</h3>
                             <p><strong>Power:</strong> ${gen.power_kW} kW / ${gen.power_kVA} kVA</p>
                             <p><strong>Fuel:</strong> ${gen.fuel}</p>
+                            <p><strong>Application:</strong> ${gen.load_type}</p>
                             <p><strong>Features:</strong> ${gen.features.join(", ")}</p>
                             <img src="${gen.image}" alt="${gen.model}" style="max-width:100px;">
-                            <p><strong>Price:</strong> $${gen.price}</p>
                         </div>
                     `;
                 });
@@ -76,6 +88,6 @@
     
             resultsDiv.style.display = "block";
         }
-    </script>
+    </script>       
 </body>
 </html>
